@@ -1,0 +1,17 @@
+/Users/taku/Projects/ElevatorSimulator/ElevatorSimulator.Services/bin/Debug/net7.0/ElevatorSimulator.Services.deps.json
+/Users/taku/Projects/ElevatorSimulator/ElevatorSimulator.Services/bin/Debug/net7.0/ElevatorSimulator.Services.dll
+/Users/taku/Projects/ElevatorSimulator/ElevatorSimulator.Services/bin/Debug/net7.0/ElevatorSimulator.Services.pdb
+/Users/taku/Projects/ElevatorSimulator/ElevatorSimulator.Services/bin/Debug/net7.0/ElevatorSimulator.Interfaces.dll
+/Users/taku/Projects/ElevatorSimulator/ElevatorSimulator.Services/bin/Debug/net7.0/ElevatorSimulator.Models.dll
+/Users/taku/Projects/ElevatorSimulator/ElevatorSimulator.Services/bin/Debug/net7.0/ElevatorSimulator.Interfaces.pdb
+/Users/taku/Projects/ElevatorSimulator/ElevatorSimulator.Services/bin/Debug/net7.0/ElevatorSimulator.Models.pdb
+/Users/taku/Projects/ElevatorSimulator/ElevatorSimulator.Services/obj/Debug/net7.0/ElevatorSimulator.Services.csproj.AssemblyReference.cache
+/Users/taku/Projects/ElevatorSimulator/ElevatorSimulator.Services/obj/Debug/net7.0/ElevatorSimulator.Services.GeneratedMSBuildEditorConfig.editorconfig
+/Users/taku/Projects/ElevatorSimulator/ElevatorSimulator.Services/obj/Debug/net7.0/ElevatorSimulator.Services.AssemblyInfoInputs.cache
+/Users/taku/Projects/ElevatorSimulator/ElevatorSimulator.Services/obj/Debug/net7.0/ElevatorSimulator.Services.AssemblyInfo.cs
+/Users/taku/Projects/ElevatorSimulator/ElevatorSimulator.Services/obj/Debug/net7.0/ElevatorSimulator.Services.csproj.CoreCompileInputs.cache
+/Users/taku/Projects/ElevatorSimulator/ElevatorSimulator.Services/obj/Debug/net7.0/ElevatorSimulator.Services.csproj.CopyComplete
+/Users/taku/Projects/ElevatorSimulator/ElevatorSimulator.Services/obj/Debug/net7.0/ElevatorSimulator.Services.dll
+/Users/taku/Projects/ElevatorSimulator/ElevatorSimulator.Services/obj/Debug/net7.0/refint/ElevatorSimulator.Services.dll
+/Users/taku/Projects/ElevatorSimulator/ElevatorSimulator.Services/obj/Debug/net7.0/ElevatorSimulator.Services.pdb
+/Users/taku/Projects/ElevatorSimulator/ElevatorSimulator.Services/obj/Debug/net7.0/ref/ElevatorSimulator.Services.dll

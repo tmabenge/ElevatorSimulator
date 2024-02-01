@@ -1,0 +1,12 @@
+/Users/taku/Projects/ElevatorSimulator/ElevatorSimulator.Utilities/bin/Debug/net7.0/ElevatorSimulator.Utilities.deps.json
+/Users/taku/Projects/ElevatorSimulator/ElevatorSimulator.Utilities/bin/Debug/net7.0/ElevatorSimulator.Utilities.dll
+/Users/taku/Projects/ElevatorSimulator/ElevatorSimulator.Utilities/bin/Debug/net7.0/ElevatorSimulator.Utilities.pdb
+/Users/taku/Projects/ElevatorSimulator/ElevatorSimulator.Utilities/obj/Debug/net7.0/ElevatorSimulator.Utilities.csproj.AssemblyReference.cache
+/Users/taku/Projects/ElevatorSimulator/ElevatorSimulator.Utilities/obj/Debug/net7.0/ElevatorSimulator.Utilities.GeneratedMSBuildEditorConfig.editorconfig
+/Users/taku/Projects/ElevatorSimulator/ElevatorSimulator.Utilities/obj/Debug/net7.0/ElevatorSimulator.Utilities.AssemblyInfoInputs.cache
+/Users/taku/Projects/ElevatorSimulator/ElevatorSimulator.Utilities/obj/Debug/net7.0/ElevatorSimulator.Utilities.AssemblyInfo.cs
+/Users/taku/Projects/ElevatorSimulator/ElevatorSimulator.Utilities/obj/Debug/net7.0/ElevatorSimulator.Utilities.csproj.CoreCompileInputs.cache
+/Users/taku/Projects/ElevatorSimulator/ElevatorSimulator.Utilities/obj/Debug/net7.0/ElevatorSimulator.Utilities.dll
+/Users/taku/Projects/ElevatorSimulator/ElevatorSimulator.Utilities/obj/Debug/net7.0/refint/ElevatorSimulator.Utilities.dll
+/Users/taku/Projects/ElevatorSimulator/ElevatorSimulator.Utilities/obj/Debug/net7.0/ElevatorSimulator.Utilities.pdb
+/Users/taku/Projects/ElevatorSimulator/ElevatorSimulator.Utilities/obj/Debug/net7.0/ref/ElevatorSimulator.Utilities.dll
