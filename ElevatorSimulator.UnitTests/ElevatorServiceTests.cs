@@ -1,56 +1,84 @@
-﻿using ElevatorSimulator.Models;
-using ElevatorSimulator.Services;
 using NUnit.Framework;
-using System.Collections.Generic;
+using Moq;
+using ElevatorSimulator.DTOs;
+using ElevatorSimulator.Interfaces;
+using ElevatorSimulator.Services;
+using ElevatorSimulator.Mappers;
+using ElevatorSimulator.Utilities;
+using ElevatorSimulator.Models;
 
-[TestFixture]
-public class ElevatorServiceTests
+namespace ElevatorSimulator.Tests
 {
-    private ElevatorService _elevatorService;
-    private List<Elevator> _elevators;
-
-    [SetUp]
-    public void Setup()
+    [TestFixture]
+    public class ElevatorServiceTests
     {
-        // Initialize with a set of elevators for testing
-        _elevators = new List<Elevator>
-        {
-            new Elevator(10), // Elevator ID 1, Capacity 10
-            new Elevator(10)  // Elevator ID 2, Capacity 10
-        };
-        _elevatorService = new ElevatorService(_elevators);
-    }
+        private IElevatorService? _elevatorService;
+        private Mock<IMapper>? _mapperMock;
+        private Mock<ILogger>? _loggerMock;
 
-
-    [Test]
-    public void LoadPassenger_WhenAtCapacity_ThrowsInvalidOperationException()
-    {
-        // Arrange
-        var elevator = _elevators[0];
-        // Fill the elevator to capacity
-        for (int i = 0; i < elevator.Capacity; i++)
+        [SetUp]
+        public void Setup()
         {
-            elevator.Passengers.Add(new Passenger(1, 5));
+            _mapperMock = new Mock<IMapper>();
+            _loggerMock = new Mock<ILogger>();
+            _elevatorService = new ElevatorService(_mapperMock.Object, _loggerMock.Object);
         }
-        var newPassenger = new Passenger(2, 6);
 
-        // Act & Assert
-        Assert.Throws<InvalidOperationException>(() => _elevatorService.LoadPassenger(elevator, newPassenger));
-    }
+        [Test]
+        public void AddPassengerToQueue_ShouldAddPassengerToWaitingQueue()
+        {
+            // Arrange
+            int floor = 1;
+            var passengerDto = new PassengerDto { CurrentFloor = 1, DestinationFloor = 2 };
 
-    [Test]
-    public void MoveElevator_WhenCalled_MovesElevatorToTargetFloor()
+            // Act
+            _elevatorService.AddPassengerToQueue(floor, passengerDto);
+
+            // Assert
+            Assert.That(_elevatorService.WaitingPassengerFloors[floor].Count, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void DispatchElevator_WhenNoElevatorAvailable_ShouldLogMessage()
+        {
+            // Arrange
+            int requestedFloor = 1;
+
+            // Act
+            _elevatorService.DispatchElevator(requestedFloor);
+
+            // Assert
+            _loggerMock.Verify(logger => logger.Log("No available elevator to dispatch."), Times.Once);
+        }
+
+        [Test]
+        public void Elevators_ShouldReturnListOfElevatorDtos()
+        {
+            // Arrange
+            var elevators = new List<Elevator>
     {
-        // Arrange
-        var targetFloor = 5;
-        var elevator = _elevators[0];
+        new Elevator(10), // Example elevators with capacity 10
+        new Elevator(10),
+        new Elevator(10)
+    };
 
-        // Act
-        _elevatorService.DispatchElevator(targetFloor);
+            _mapperMock.Setup(mapper => mapper.MapList<Elevator, ElevatorDto>(It.IsAny<List<Elevator>>()))
+                       .Returns(new List<ElevatorDto>
+                       {
+                   new ElevatorDto { ElevatorId = 1, CurrentFloor = 1 }, // Example elevator DTOs
+                   new ElevatorDto { ElevatorId = 2, CurrentFloor = 1 },
+                   new ElevatorDto { ElevatorId = 3, CurrentFloor = 1 }
+                       });
 
-        // Assert
-        Assert.Equals(targetFloor, elevator.CurrentFloor);
+            // Act
+            var result = _elevatorService.Elevators;
+
+            // Assert
+            Assert.That(result.Count, Is.EqualTo(3));
+            Assert.That(result[0].ElevatorId, Is.EqualTo(1));
+            Assert.That(result[1].CurrentFloor, Is.EqualTo(1));
+            Assert.That(result[2].ElevatorId, Is.EqualTo(3));
+        }
+
     }
-
-    // Additional tests for unloading passengers, elevator status updates, etc., can be added here
 }
