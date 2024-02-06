@@ -1,80 +1,119 @@
 ﻿using System;
+using ElevatorSimulator.DTOs;
 using ElevatorSimulator.Interfaces;
-using ElevatorSimulator.Models;
+using ElevatorSimulator.Mappers;
 using ElevatorSimulator.Services;
 using ElevatorSimulator.Utilities;
+using Microsoft.Extensions.DependencyInjection;
+// Initialize ElevatorService
+var elevatorService = InitializeElevatorService();
 
-public class Program
+// Run the console interface
+Console.WriteLine("Elevator Simulator Console Interface");
+Console.WriteLine("------------------------------------");
+
+while (true)
 {
-    public static void Main(string[] args)
+    Console.WriteLine("\nOptions:");
+    Console.WriteLine("1. Add Passenger to Waiting Queue & Elevator Dispatch");
+    Console.WriteLine("2. Run Simulation");
+    Console.WriteLine("3. Exit");
+
+    Console.Write("Enter your choice (1-3): ");
+    string choice = Console.ReadLine();
+
+    switch (choice)
     {
-        try
-        {
-            // Initialize elevators and floors
-            List<Elevator> elevators = new();
-            for (int i = 0; i < 2; i++)
-            {
-                elevators.Add(new Elevator(10));
-            }
+        case "1":
+            AddPassengerToQueueElevatorDispatch(elevatorService);
+            break;
 
-            List<Floor> floors = new();
-            for (int i = 0; i < 3; i++)
-            {
-                floors.Add(new Floor(i));
-            }
+        case "2":
+            RunSimulation(elevatorService);
+            break;
 
-            // Initialize the elevator service
-            IElevatorService elevatorService = new ElevatorService(elevators);
+        case "3":
+            Console.WriteLine("Exiting the program. Goodbye!");
+            return;
 
-            // Start the elevator simulation
-            //elevatorService.StartSimulation();
-
-            // Run the simulation until the user decides to stop
-            while (true)
-            {
-                // Display the current status of the elevators
-                elevatorService.DisplayElevatorStatuses();
-
-                // Handle user input for elevator requests
-                HandleUserInput(elevatorService);
-            }
-        }
-        catch (Exception ex)
-        {
-            // Log any unhandled exceptions
-            Logger.Log(ex);
-        }
+        default:
+            Console.WriteLine("Invalid choice. Please enter a valid option.");
+            break;
     }
+}
 
-    private static void HandleUserInput(IElevatorService elevatorService)
+IElevatorService InitializeElevatorService()
+{
+    var serviceProvider = new ServiceCollection()
+                   .AddScoped<IMapper, Mapper>()
+                   .AddScoped<ILogger, Logger>()
+                   .AddScoped<IElevatorService, ElevatorService>()
+                   .BuildServiceProvider();
+
+
+    var mapper = serviceProvider.GetRequiredService<IMapper>();
+    var logger = serviceProvider.GetRequiredService<ILogger>();
+
+
+    return new ElevatorService(mapper, logger);
+}
+
+void AddPassengerToQueueElevatorDispatch(IElevatorService elevatorService)
+{
+    Console.Write("Enter the floor for the waiting passenger: ");
+    if (int.TryParse(Console.ReadLine(), out int floor))
     {
-        Console.WriteLine("Enter 1 to request an elevator, 2 to load a passenger, or any other key to exit:");
-        string userInput = Console.ReadLine();
-
-        switch (userInput)
+        Console.Write("Enter the passenger's destination floor: ");
+        if (int.TryParse(Console.ReadLine(), out int destinationFloor))
         {
-            case "1":
-                RequestElevator(elevatorService);
-                break;
-            default:
-                Environment.Exit(0);
-                break;
-        }
-    }
-
-    private static void RequestElevator(IElevatorService elevatorService)
-    {
-        Console.WriteLine("Enter the floor to request an elevator:");
-        if (int.TryParse(Console.ReadLine(), out int requestedFloor))
-        {
-            elevatorService.DispatchElevator(requestedFloor);
-            elevatorService.DisplayElevatorStatuses();
+            var passengerDto = new PassengerDto { DestinationFloor = destinationFloor };
+            elevatorService.AddPassengerToQueue(floor, passengerDto);
+            elevatorService.DispatchElevator(floor);
         }
         else
         {
-            Console.WriteLine("Invalid floor input.");
+            Console.WriteLine("Invalid destination floor. Please enter a valid number.");
         }
     }
+    else
+    {
+        Console.WriteLine("Invalid floor. Please enter a valid number.");
+    }
+}
 
+void RunSimulation(IElevatorService elevatorService)
+{
+    Console.WriteLine("Running Simulation...");
 
+    // Simulate elevator activity for a certain duration
+    while(true)
+    {
+        // Simulate time passing
+        Thread.Sleep(1000);
+
+        // Randomly generate passenger requests and elevator dispatches
+        SimulateRandomElevatorActivity(elevatorService);
+    }
+
+    Console.WriteLine("Simulation completed.");
+}
+
+void SimulateRandomElevatorActivity(IElevatorService elevatorService)
+{
+    Random random = new Random();
+
+    // Simulate adding passengers to waiting queues
+    for (int i = 0; i < random.Next(1, 4); i++)
+    {
+        int floor = random.Next(Constants.MinFloor, Constants.MaxFloor + 1);
+        int destinationFloor = random.Next(Constants.MinFloor, Constants.MaxFloor + 1);
+        var passengerDto = new PassengerDto { DestinationFloor = destinationFloor };
+        elevatorService.AddPassengerToQueue(floor, passengerDto);
+        Console.WriteLine($"Passenger added to the waiting queue at floor {floor} with destination {destinationFloor}.");
+    }
+
+    // Simulate requesting elevator dispatch
+    int requestedFloor = random.Next(Constants.MinFloor, Constants.MaxFloor + 1);
+    elevatorService.DispatchElevator(requestedFloor);
+    Console.WriteLine($"Elevator dispatch requested for floor {requestedFloor}.");
 }

@@ -1,4 +1,6 @@
-﻿namespace ElevatorSimulator.Models;
+﻿using ElevatorSimulator.Utilities;
+
+namespace ElevatorSimulator.Models;
 
 public class Elevator
 {
@@ -19,9 +21,9 @@ public class Elevator
 
     public int Id { get; private set; }
 
-    public int CurrentFloor { get; private set; }
-    public Status ElevatorStatus { get; private set; }
-    public Direction ElevatorDirection { get; private set; }
+    public int CurrentFloor { get; set; }
+    public Status ElevatorStatus { get;  set; }
+    public Direction ElevatorDirection { get; set; }
     public int Capacity { get; private set; }
     public List<Passenger> Passengers { get; private set; }
     public bool IsAvailable => ElevatorStatus == Status.Stationary && ElevatorDirection == Direction.None;
@@ -51,7 +53,7 @@ public class Elevator
             ElevatorDirection = Direction.None;
         }
 
-        CurrentFloor = floor;
+        CurrentFloor = Math.Clamp(floor, Constants.MinFloor, Constants.MaxFloor);
         ElevatorStatus = Status.Stationary;
     }
 
@@ -63,7 +65,7 @@ public class Elevator
         }
         else
         {
-            throw new InvalidOperationException("Elevator is at full capacity.");
+            
         }
     }
 
@@ -79,4 +81,5 @@ public class Elevator
         }
     }
 }
+
 
