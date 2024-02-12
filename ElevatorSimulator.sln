@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElevatorSimulator.Models", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElevatorSimulator.Services", "ElevatorSimulator.Services\ElevatorSimulator.Services.csproj", "{A89A26E7-43D1-43BF-AC54-3788F7BA69EB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElevatorSimulator.Interfaces", "ElevatorSimulator.Interfaces\ElevatorSimulator.Interfaces.csproj", "{88E15A5E-932B-49B0-81C7-6B7F925333DC}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElevatorSimulator.Utilities", "ElevatorSimulator.Utilities\ElevatorSimulator.Utilities.csproj", "{BED1758C-6953-4BDC-B66D-D60974CBCEA2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElevatorSimulator.UnitTests", "ElevatorSimulator.UnitTests\ElevatorSimulator.UnitTests.csproj", "{C96CF892-7FA7-4DCC-A215-6866E1909201}"
