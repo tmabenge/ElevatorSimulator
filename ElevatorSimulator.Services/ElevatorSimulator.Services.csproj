@@ -5,4 +5,10 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ElevatorSimulator.DTOs\ElevatorSimulator.DTOs.csproj" />
+    <ProjectReference Include="..\ElevatorSimulator.Models\ElevatorSimulator.Models.csproj" />
+    <ProjectReference Include="..\ElevatorSimulator.Utilities\ElevatorSimulator.Utilities.csproj" />
+  </ItemGroup>
 </Project>

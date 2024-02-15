@@ -1,6 +1,5 @@
 ﻿namespace ElevatorSimulator.Utilities;
 
-
 public class Logger : ILogger
 {
     /// <summary>

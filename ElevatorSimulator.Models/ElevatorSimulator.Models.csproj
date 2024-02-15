@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ElevatorSimulator.Utilities\ElevatorSimulator.Utilities.csproj" />
+  </ItemGroup>
+
 </Project>

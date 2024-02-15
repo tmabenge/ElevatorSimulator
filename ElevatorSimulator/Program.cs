@@ -1,8 +1,7 @@
-﻿using System;
-using ElevatorSimulator.DTOs;
-using ElevatorSimulator.Interfaces;
+﻿using ElevatorSimulator.DTOs;
 using ElevatorSimulator.Mappers;
 using ElevatorSimulator.Services;
+using ElevatorSimulator.Services.Interfaces;
 using ElevatorSimulator.Utilities;
 using Microsoft.Extensions.DependencyInjection;
 // Initialize ElevatorService

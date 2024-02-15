@@ -1,6 +1,6 @@
 ﻿using ElevatorSimulator.DTOs;
 
-namespace ElevatorSimulator.Interfaces
+namespace ElevatorSimulator.Services.Interfaces
 {
 
     public interface IElevatorService

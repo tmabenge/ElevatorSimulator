@@ -1,11 +1,11 @@
 using NUnit.Framework;
 using Moq;
 using ElevatorSimulator.DTOs;
-using ElevatorSimulator.Interfaces;
 using ElevatorSimulator.Services;
 using ElevatorSimulator.Mappers;
 using ElevatorSimulator.Utilities;
 using ElevatorSimulator.Models;
+using ElevatorSimulator.Services.Interfaces;
 
 namespace ElevatorSimulator.Tests
 {
@@ -62,7 +62,7 @@ namespace ElevatorSimulator.Tests
         new Elevator(10)
     };
 
-            _mapperMock.Setup(mapper => mapper.MapList<Elevator, ElevatorDto>(It.IsAny<List<Elevator>>()))
+            _ = _mapperMock.Setup(mapper => mapper.MapList<Elevator, ElevatorDto>(It.IsAny<List<Elevator>>()))
                        .Returns(new List<ElevatorDto>
                        {
                    new ElevatorDto { ElevatorId = 1, CurrentFloor = 1 }, // Example elevator DTOs
@@ -71,7 +71,7 @@ namespace ElevatorSimulator.Tests
                        });
 
             // Act
-            var result = _elevatorService.Elevators;
+            List<ElevatorDto> result = _elevatorService.Elevators;
 
             // Assert
             Assert.That(result.Count, Is.EqualTo(3));
