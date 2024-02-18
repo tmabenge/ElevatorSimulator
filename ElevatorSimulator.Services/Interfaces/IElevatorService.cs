@@ -1,16 +1,16 @@
 ﻿using ElevatorSimulator.DTOs;
+using ElevatorSimulator.Event;
+using ElevatorSimulator.Models;
 
 namespace ElevatorSimulator.Services.Interfaces
 {
 
     public interface IElevatorService
     {
-        object Lock { get; }
-        List<ElevatorDto> Elevators { get; }
-        Dictionary<int, Queue<PassengerDto>> WaitingPassengerFloors { get; }
+        IObservable<ElevatorEventArgs> ElevatorStatusChanges { get; }
+        IObservable<PassengerEventArgs> PassengerActivity { get; }
 
         void AddPassengerToQueue(int floor, PassengerDto passengerDto);
-        void DispatchElevator(int requestedFloor);
     }
 
 }

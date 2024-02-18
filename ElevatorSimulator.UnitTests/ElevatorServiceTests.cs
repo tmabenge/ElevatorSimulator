@@ -6,6 +6,11 @@ using ElevatorSimulator.Mappers;
 using ElevatorSimulator.Utilities;
 using ElevatorSimulator.Models;
 using ElevatorSimulator.Services.Interfaces;
+using AutoMapper;
+using NUnit.Framework.Internal;
+using ILogger = ElevatorSimulator.Utilities.ILogger;
+using IMapper = ElevatorSimulator.Mappers.IMapper;
+using Xunit;
 
 namespace ElevatorSimulator.Tests
 {
@@ -24,60 +29,21 @@ namespace ElevatorSimulator.Tests
             _elevatorService = new ElevatorService(_mapperMock.Object, _loggerMock.Object);
         }
 
-        [Test]
-        public void AddPassengerToQueue_ShouldAddPassengerToWaitingQueue()
+        [Fact]
+        public void AddPassengerToQueue_TriggersStatusChange()
         {
-            // Arrange
-            int floor = 1;
-            var passengerDto = new PassengerDto { CurrentFloor = 1, DestinationFloor = 2 };
+            // Arrange - Set up test data and mock event handler
+            bool eventTriggered = false;
+            _elevatorService?.PassengerActivity.Subscribe(_ => eventTriggered = true);
 
             // Act
-            _elevatorService.AddPassengerToQueue(floor, passengerDto);
+            _elevatorService?.AddPassengerToQueue(3, new PassengerDto { DestinationFloor = 5});
+
+            //Verify
+            _mapperMock?.Verify(m => m.Map<PassengerDto, Passenger>(It.IsAny<PassengerDto>()), Times.Once);
 
             // Assert
-            Assert.That(_elevatorService.WaitingPassengerFloors[floor].Count, Is.EqualTo(1));
-        }
-
-        [Test]
-        public void DispatchElevator_WhenNoElevatorAvailable_ShouldLogMessage()
-        {
-            // Arrange
-            int requestedFloor = 1;
-
-            // Act
-            _elevatorService.DispatchElevator(requestedFloor);
-
-            // Assert
-            _loggerMock.Verify(logger => logger.Log("No available elevator to dispatch."), Times.Once);
-        }
-
-        [Test]
-        public void Elevators_ShouldReturnListOfElevatorDtos()
-        {
-            // Arrange
-            var elevators = new List<Elevator>
-    {
-        new Elevator(10), // Example elevators with capacity 10
-        new Elevator(10),
-        new Elevator(10)
-    };
-
-            _ = _mapperMock.Setup(mapper => mapper.MapList<Elevator, ElevatorDto>(It.IsAny<List<Elevator>>()))
-                       .Returns(new List<ElevatorDto>
-                       {
-                   new ElevatorDto { ElevatorId = 1, CurrentFloor = 1 }, // Example elevator DTOs
-                   new ElevatorDto { ElevatorId = 2, CurrentFloor = 1 },
-                   new ElevatorDto { ElevatorId = 3, CurrentFloor = 1 }
-                       });
-
-            // Act
-            List<ElevatorDto> result = _elevatorService.Elevators;
-
-            // Assert
-            Assert.That(result.Count, Is.EqualTo(3));
-            Assert.That(result[0].ElevatorId, Is.EqualTo(1));
-            Assert.That(result[1].CurrentFloor, Is.EqualTo(1));
-            Assert.That(result[2].ElevatorId, Is.EqualTo(3));
+            Assert.That(eventTriggered);
         }
 
     }

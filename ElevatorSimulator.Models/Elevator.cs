@@ -1,4 +1,4 @@
-﻿using ElevatorSimulator.Utilities;
+﻿
 
 namespace ElevatorSimulator.Models;
 
@@ -7,7 +7,8 @@ public class Elevator
     public enum Status
     {
         Moving,
-        Stationary
+        Stationary,
+        DoorsOpen
     }
 
     public enum Direction
@@ -38,6 +39,7 @@ public class Elevator
         Passengers = new List<Passenger>();
     }
 
+
     public void MoveToFloor(int floor)
     {
         if (floor > CurrentFloor)
@@ -53,7 +55,7 @@ public class Elevator
             ElevatorDirection = Direction.None;
         }
 
-        CurrentFloor = Math.Clamp(floor, Constants.MinFloor, Constants.MaxFloor);
+        CurrentFloor = Math.Clamp(floor, 1, 9);
         ElevatorStatus = Status.Stationary;
     }
 
@@ -80,6 +82,7 @@ public class Elevator
             throw new InvalidOperationException("Passenger is not in the elevator.");
         }
     }
+
 }
 
 
