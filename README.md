@@ -30,13 +30,6 @@ The project is structured as follows:
 - **ElevatorSimulator.Utilities**: Contains utility classes and constants used throughout the application.
 - **ElevatorSimulator.Tests**: Contains unit tests for testing the functionality of the application.
 
-## Observer Pattern (Not Implemented)
-The Observer pattern could be implemented to allow components of the system to subscribe to events related to elevator operations. For example, a Console component could subscribe to events such as "ElevatorArrived", "PassengerLoaded", and "PassengerUnloaded" to update its display in real-time.
-
-```
-
-With the Factory pattern, you can create different instances of elevators based on their types, allowing for more flexibility and scalability in your application.
-
 ## Usage
 1. Clone the repository to your local machine.
 2. Open the solution in Visual Studio or your preferred IDE.
@@ -45,6 +38,6 @@ With the Factory pattern, you can create different instances of elevators based 
 5. Run the application and interact with it to simulate elevator operations.
 
 ## License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License.
 
 ---
